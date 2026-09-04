@@ -716,3 +716,213 @@ body {
   text-align: center;
   font-weight: 600;
 }
+
+
+/* --- Estilos del Dashboard --- */
+.dashboard-body {
+  margin: 0;
+  background-color: var(--bg-onyx);
+  color: var(--text-platinum);
+  display: flex;
+  height: 100vh;
+  font-family: inherit;
+  overflow: hidden;
+}
+
+.dashboard-sidebar {
+  width: 280px;
+  background-color: var(--panel-teal);
+  border-right: 1px solid var(--border-teal);
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1.5rem;
+  gap: 2rem;
+}
+
+.sidebar-brand {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent-blue);
+  letter-spacing: 0.05em;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nav-item {
+  background: transparent;
+  border: none;
+  color: oklch(75% 0.01 240);
+  text-align: left;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover, .nav-item.active {
+  background-color: var(--bg-onyx);
+  color: var(--accent-blue);
+  border: 1px solid var(--border-teal);
+}
+
+.btn-logout {
+  margin-top: auto;
+  color: oklch(70% 0.15 20);
+}
+
+.dashboard-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.dashboard-topbar {
+  background-color: var(--panel-teal);
+  border-bottom: 1px solid var(--border-teal);
+  padding: 1.5rem 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard-topbar h2 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.user-status-badge {
+  background-color: oklch(25% 0.1 140);
+  border: 1px solid oklch(50% 0.15 140);
+  color: oklch(90% 0.1 140);
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.dashboard-content {
+  padding: 2.5rem;
+  max-width: 1200px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.product-card {
+  background-color: var(--panel-teal);
+  border: 1px solid var(--border-teal);
+  padding: 1.8rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.product-card h4 {
+  margin: 0;
+  color: var(--accent-blue);
+}
+
+.product-balance {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.transaction-form {
+  background-color: var(--panel-teal);
+  border: 1px solid var(--border-teal);
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+}
+
+.form-control {
+  background-color: var(--bg-onyx);
+  border: 1px solid var(--border-teal);
+  padding: 0.75rem;
+  border-radius: 8px;
+  color: var(--text-platinum);
+  width: 100%;
+}
+
+/* --- Diseño Responsivo para el Dashboard --- */
+@media (max-width: 900px) {
+  .dashboard-body {
+    flex-direction: column;
+    height: auto;
+    overflow-y: auto;
+  }
+
+  .dashboard-sidebar {
+    width: 100%;
+    height: auto;
+    padding: 1.2rem;
+    gap: 1rem;
+    border-right: none;
+    border-bottom: 1px solid var(--border-teal);
+  }
+
+  .sidebar-nav {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .nav-item {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.8rem;
+    flex: 1 1 auto;
+    text-align: center;
+  }
+
+  .btn-logout {
+    margin-top: 0;
+  }
+
+  .dashboard-main {
+    height: auto;
+    overflow-y: visible;
+  }
+
+  .dashboard-content {
+    padding: 1.5rem;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .transaction-form {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .sidebar-nav {
+    flex-direction: column;
+  }
+  
+  .dashboard-topbar {
+    padding: 1rem;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+}

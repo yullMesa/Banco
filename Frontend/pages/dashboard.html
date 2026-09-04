@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MI PLATA - Panel de Transacciones</title>
+  <link rel="stylesheet" href="../Style/banco.css">
+</head>
+<body class="dashboard-body">
+
+  <!-- Sidebar de Navegación del Cajero -->
+  <aside class="dashboard-sidebar">
+    <div class="sidebar-brand">◆ MI PLATA</div>
+    <nav class="sidebar-nav">
+      <button class="nav-item active" data-target="seccion-resumen">Resumen y Saldo</button>
+      <button class="nav-item" data-target="seccion-consignar">Consignar Dinero</button>
+      <button class="nav-item" data-target="seccion-retirar">Retirar Dinero</button>
+      <button class="nav-item" data-target="seccion-movimientos">Ver Movimientos</button>
+      <button class="nav-item" data-target="seccion-transferir">Transferir</button>
+      <button class="nav-item" data-target="seccion-perfil">Perfil y Seguridad</button>
+      <button class="nav-item btn-logout" id="btn-cerrar-sesion">Cerrar Sesión</button>
+    </nav>
+  </aside>
+
+  <!-- Área Principal de Contenido -->
+  <main class="dashboard-main">
+    <header class="dashboard-topbar">
+      <h2>Bienvenido, <span id="nombre-usuario-display">[Usuario]</span></h2>
+      <div class="user-status-badge">Sesión Activa</div>
+    </header>
+
+    <div class="dashboard-content">
+      
+      <!-- 1. Sección Resumen y Saldo -->
+      <section id="seccion-resumen" class="content-section active">
+        <h3>Tus Productos Bancarios</h3>
+        <div class="cards-grid">
+          <div class="product-card">
+            <h4>Cuenta de Ahorros</h4>
+            <p class="product-balance">$0.00</p>
+            <small>Tasa de interés: 1.5% mensual al retirar[cite: 2]</small>
+          </div>
+          <div class="product-card">
+            <h4>Cuenta Corriente</h4>
+            <p class="product-balance">$0.00</p>
+            <small>Incluye sobregiro del 20%[cite: 2]</small>
+          </div>
+          <div class="product-card">
+            <h4>Tarjeta de Crédito</h4>
+            <p class="product-balance">$0.00 <small>Cupo utilizado</small></p>
+            <small>Financiación a cuotas con intereses[cite: 2]</small>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Sección Consignar -->
+      <section id="seccion-consignar" class="content-section" style="display: none;">
+        <h3>Consignación de Dinero</h3>
+        <form class="transaction-form">
+          <div class="form-group">
+            <label>Seleccionar Producto</label>
+            <select class="form-control">
+              <option>Cuenta de Ahorros</option>
+              <option>Cuenta Corriente</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Monto a Depositar</label>
+            <input type="number" placeholder="Ej. 50000" min="1" required>
+          </div>
+          <button type="submit" class="btn-primary">Confirmar Consignación</button>
+        </form>
+      </section>
+
+      <!-- 3. Sección Retirar -->
+      <section id="seccion-retirar" class="content-section" style="display: none;">
+        <h3>Retiro de Dinero</h3>
+        <form class="transaction-form">
+          <div class="form-group">
+            <label>Seleccionar Producto</label>
+            <select class="form-control">
+              <option>Cuenta de Ahorros (Aplica interés 1.5%)[cite: 2]</option>
+              <option>Cuenta Corriente (Permite sobregiro 20%)[cite: 2]</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Monto a Retirar</label>
+            <input type="number" placeholder="Ej. 20000" min="1" required>
+          </div>
+          <button type="submit" class="btn-primary">Procesar Retiro</button>
+        </form>
+      </section>
+
+      <!-- 4. Sección Movimientos -->
+      <section id="seccion-movimientos" class="content-section" style="display: none;">
+        <h3>Historial de Movimientos</h3>
+        <div class="table-responsive">
+          <table class=" movimientos-table">
+            <thead>
+              <tr>
+                <th>Fecha y Hora[cite: 2]</th>
+                <th>Tipo[cite: 2]</th>
+                <th>Valor[cite: 2]</th>
+              </tr>
+            </thead>
+            <tbody id="historial-body">
+              <tr><td colspan="3" style="text-align: center;">No hay movimientos registrados aún.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 5. Sección Transferir -->
+      <section id="seccion-transferir" class="content-section" style="display: none;">
+        <h3>Transferencias Bancarias</h3>
+        <form class="transaction-form">
+          <div class="form-group">
+            <label>Cuenta Origen</label>
+            <select class="form-control"><option>Ahorros</option><option>Corriente</option></select>
+          </div>
+          <div class="form-group">
+            <label>Destino (Cuenta propia o de otro usuario)</label>
+            <input type="text" placeholder="Número de cuenta o correo destino" required>
+          </div>
+          <div class="form-group">
+            <label>Monto</label>
+            <input type="number" placeholder="0.00" required>
+          </div>
+          <button type="submit" class="btn-primary">Realizar Transferencia</button>
+        </form>
+      </section>
+
+      <!-- 6. Sección Perfil -->
+      <section id="seccion-perfil" class="content-section" style="display: none;">
+        <h3>Perfil y Seguridad</h3>
+        <form class="transaction-form">
+          <div class="form-group"><label>Nombre Completo</label><input type="text" id="perfil-nombre"></div>
+          <div class="form-group"><label>Celular</label><input type="text" id="perfil-celular"></div>
+          <button type="submit" class="btn-primary">Guardar Cambios de Perfil[cite: 2]</button>
+        </form>
+        <hr style="border-color: var(--border-teal); margin: 2rem 0;">
+        <form class="transaction-form">
+          <h4>Cambiar Contraseña[cite: 2]</h4>
+          <div class="form-group"><label>Contraseña Actual</label><input type="password" required></div>
+          <div class="form-group"><label>Nueva Contraseña</label><input type="password" required></div>
+          <div class="form-group"><label>Confirmar Nueva Contraseña</label><input type="password" required></div>
+          <button type="submit" class="btn-primary">Actualizar Clave</button>
+        </form>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="../js/dashboard.js"></script>
+</body>
+</html>
