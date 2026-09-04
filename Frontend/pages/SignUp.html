@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MI PLATA - Registro de Usuario</title>
+  <link rel="stylesheet" href="../Style/banco.css">
+</head>
+<body class="auth-body">
+
+  <!-- Navbar minimalista para auth -->
+  <header class="bank-header">
+    <nav class="bank-navbar">
+      <div class="bank-brand">◆ MI PLATA</div>
+      <a href="../index.html" class="btn-login" style="text-decoration: none;">Volver al inicio</a>
+    </nav>
+  </header>
+
+  <!-- Contenedor del Formulario de Registro -->
+  <main class="auth-main">
+    <div class="auth-card">
+      <div class="auth-header-text">
+        <span class="hero-tag">#UNETEAMIPLATA</span>
+        <h1>Crea tu cuenta Onyx</h1>
+        <p>Completa tus datos para registrarte en la plataforma de simulación.</p>
+      </div>
+
+      <form id="signup-form" class="auth-form">
+        <div class="form-group">
+          <label for="fullname">Nombre completo</label>
+          <input type="text" id="fullname" placeholder="Ej. Yull Mesa" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" placeholder="tucorreo@ejemplo.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Contraseña</label>
+          <input type="password" id="password" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" class="btn-primary auth-btn">Registrarse</button>
+      </form>
+
+      <div id="mensaje-exito" class="success-message" style="display: none;">
+        ¡Registro exitoso! Redirigiendo...
+      </div>
+    </div>
+  </main>
+
+  <!-- Script externo para manejar la lógica con localStorage -->
+  <script src="../vanilla/signup.js"></script>
+</body>
+</html>

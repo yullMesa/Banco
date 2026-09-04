@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MI PLATA - Iniciar Sesión</title>
+  <link rel="stylesheet" href="../Style/banco.css">
+</head>
+<body class="auth-body">
+
+  <!-- Navbar minimalista para auth -->
+  <header class="bank-header">
+    <nav class="bank-navbar">
+      <div class="bank-brand">◆ MI PLATA</div>
+      <a href="../index.html" class="btn-login" style="text-decoration: none;">Volver al inicio</a>
+    </nav>
+  </header>
+
+  <!-- Contenedor del Formulario de Login -->
+  <main class="auth-main">
+    <div class="auth-card">
+      <div class="auth-header-text">
+        <span class="hero-tag">#ACCESOSEGURO</span>
+        <h1>Inicia sesión</h1>
+        <p>Ingresa tus credenciales para acceder a tu cuenta Onyx.</p>
+      </div>
+
+      <form id="login-form" class="auth-form">
+        <div class="form-group">
+          <label for="login-email">Correo electrónico</label>
+          <input type="email" id="login-email" placeholder="tucorreo@ejemplo.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="login-password">Contraseña</label>
+          <input type="password" id="login-password" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" class="btn-primary auth-btn">Entrar</button>
+      </form>
+
+      <div id="mensaje-error" class="error-message" style="display: none;">
+        Correo o contraseña incorrectos.
+      </div>
+
+      <div id="mensaje-exito-login" class="success-message" style="display: none;">
+        ¡Inicio de sesión exitoso! Redirigiendo...
+      </div>
+    </div>
+  </main>
+
+  <!-- Script externo para validar con localStorage -->
+  <script src="../vanilla/login.js"></script>
+</body>
+</html>
