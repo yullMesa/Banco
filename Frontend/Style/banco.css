@@ -1,0 +1,268 @@
+/* Definición de la paleta Dark Teal */
+:root {
+  --bg-onyx: oklch(10% 0.005 240);
+  --panel-teal: oklch(24% 0.045 200);
+  --border-teal: oklch(40% 0.06 200);
+  --accent-blue: oklch(80% 0.12 215);
+  --text-platinum: oklch(96% 0.005 240);
+}
+
+body {
+  background-color: var(--bg-onyx);
+  color: var(--text-platinum);
+  font-family: system-ui, -apple-system, sans-serif;
+  margin: 0;
+}
+
+
+.bank-navbar {
+  background-color: var(--panel-teal);
+  border-bottom: 1px solid var(--border-teal);
+  padding: 0.85rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box; /* Vital para que el padding no rompa el ancho */
+}
+
+.bank-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-size: 1.1rem;
+}
+
+.brand-icon {
+  color: var(--accent-blue);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-link {
+  color: var(--text-platinum);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: var(--accent-blue);
+}
+
+.nav-actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.btn-login {
+  color: var(--text-platinum);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  transition: color 0.2s ease;
+}
+
+.btn-login:hover {
+  color: var(--accent-blue);
+}
+
+.btn-register {
+  background-color: var(--accent-blue);
+  color: var(--bg-onyx);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.5rem 1.2rem;
+  border-radius: 4px;
+  transition: opacity 0.2s ease;
+}
+
+.btn-register:hover {
+  opacity: 0.9;
+}
+
+/* Estilos para la sección Hero Banner */
+.hero-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3rem 5rem; /* Espaciado generoso a los lados */
+  width: 100%;
+  box-sizing: border-box;
+  gap: 4rem;
+}
+
+.hero-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  max-width: 600px; /* Evita que el texto se estire demasiado en pantallas gigantes */
+}
+
+.hero-tag {
+  color: var(--accent-blue);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.hero-content h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  line-height: 1.15;
+  color: var(--text-platinum);
+  margin: 0;
+}
+
+.hero-content p {
+  font-size: 1.05rem;
+  color: oklch(80% 0.01 240);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 500px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.btn-primary {
+  background-color: var(--accent-blue);
+  color: var(--bg-onyx);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  transition: opacity 0.2s ease;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text-platinum);
+  border: 1px solid var(--border-teal);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--panel-teal);
+  border-color: var(--accent-blue);
+}
+
+/* Contenedor de la tarjeta PNG */
+/* Aseguramos que la tarjeta crezca bien y no se vea diminuta */
+.hero-image-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-card-img {
+  width: 100%;
+  max-width: 650px; /* Tarjeta grande y protagónica */
+  height: auto;
+  filter: drop-shadow(0 25px 35px rgba(0, 0, 0, 0.7));
+  transition: transform 0.3s ease;
+}
+
+.hero-card-img:hover {
+  transform: translateY(-5px);
+}
+
+/* Adaptación responsive básica para celulares */
+/* --- Estilos Responsive para Celulares y Tablets --- */
+/* --- Estilos Responsive para Celulares --- */
+@media (max-width: 900px) {
+  /* Hacemos que el navbar permita acomodar elementos en columna si es necesario */
+  .bank-navbar {
+    flex-wrap: wrap;
+    padding: 0.75rem 1rem;
+    gap: 0.75rem;
+    justify-content: center;
+  }
+
+  .bank-brand {
+    margin-right: auto;
+  }
+
+  /* Mantenemos visibles las anclas pero con un tamaño más compacto y ordenado */
+  .nav-links {
+    display: flex;
+    gap: 1.2rem;
+    width: 100%;
+    justify-content: center;
+    order: 3; /* Las mandamos a una segunda fila dentro del nav */
+    padding-top: 0.4rem;
+    border-top: 1px solid var(--border-teal);
+  }
+
+  .nav-link {
+    font-size: 0.85rem;
+  }
+
+  .nav-actions {
+    gap: 0.5rem;
+  }
+
+  .btn-login {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.5rem;
+  }
+
+  .btn-register {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  /* Banner y tarjeta en móviles */
+  .hero-banner {
+    flex-direction: column;
+    padding: 2rem 1rem;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .hero-content {
+    align-items: center;
+    max-width: 100%;
+  }
+
+  .hero-content h1 {
+    font-size: 2.1rem;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .hero-image-container {
+    width: 100%;
+  }
+
+  .hero-card-img {
+    max-width: 100%;
+    width: 320px;
+  }
+}
