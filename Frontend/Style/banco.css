@@ -808,7 +808,7 @@ body {
 }
 
 .dashboard-content {
-  padding: 3rem 2.5rem; /* Incrementamos el padding superior para bajar los elementos */
+  padding: 10rem 2.5rem; /* Incrementamos el padding superior para bajar los elementos */
   width: 100%;
   max-width: 1300px;
   margin: 0 auto;

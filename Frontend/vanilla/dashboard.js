@@ -1,50 +1,47 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. Validar que exista una sesión activa
-  const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivoMiPlata"));
-  if (!usuarioActivo) {
-    window.location.href = "Login.html";
-    return;
-  }
-
-  // 2. Mostrar el nombre completo del usuario en el topbar
-  const nombreDisplay = document.getElementById("nombre-usuario-display");
-  if (nombreDisplay) {
-    nombreDisplay.textContent = usuarioActivo.fullname || "Usuario";
-  }
-
-  // 3. Cargar la sección de Resumen por defecto al entrar
+  // Cargar por defecto la vista de resumen al entrar al dashboard
   if (typeof cargarResumen === "function") {
     cargarResumen();
   }
 
-  // 4. Manejar la navegación dinámica del menú lateral
-  const botonesNav = document.querySelectorAll(".nav-item[data-target]");
+  // Capturar los botones del menú lateral dinámicamente
+  // Asegúrate de tener esto en tu listener del menú lateral en dashboard.js
+const botonesNav = document.querySelectorAll(".nav-item");
+
   botonesNav.forEach(boton => {
     boton.addEventListener("click", (e) => {
-      botonesNav.forEach(b => b.classList.remove("active"));
-      e.target.classList.add("active");
-
-      const target = e.target.getAttribute("data-target");
+      // Usamos currentTarget para asegurar que agarre el botón completo aunque hagas clic en los bordes
+      const targetBtn = e.currentTarget;
       
-      // Enrutamiento modular por archivo JS
-      if (target === "resumen" && typeof cargarResumen === "function") {
-        cargarResumen();
+      // 1. Quitar la clase active de todos y ponérsela al actual
+      botonesNav.forEach(b => b.classList.remove("active"));
+      targetBtn.classList.add("active");
+
+      // 2. Leer la sección usando el atributo data-target del HTML
+      const seccion = targetBtn.dataset.target;
+
+      // 3. Enrutar limpiamente según el destino
+      if (seccion === "resumen") {
+        if (typeof cargarResumen === "function") cargarResumen();
+      } else if (seccion === "consignar") {
+        if (typeof cargarConsignar === "function") cargarConsignar();
+      } else if (seccion === "productos") {
+        if (typeof cargarProductos === "function") cargarProductos();
+      } else if (seccion === "retirar") {
+        if (typeof cargarRetirar === "function") cargarRetirar();
+      } else if (seccion === "movimientos") {
+        if (typeof cargarMovimientos === "function") cargarMovimientos();
+      } else if (seccion === "transferir") {
+        if (typeof cargarTransferir === "function") cargarTransferir();
+      } else if (seccion === "perfil") {
+        if (typeof cargarPerfil === "function") cargarPerfil();
       } else {
         document.getElementById("dashboard-content").innerHTML = `
-          <div style="text-align: center; padding: 3rem;">
-            <h3>Módulo de ${target.toUpperCase()} en construcción...</h3>
+          <div style="padding: 2rem; color: var(--text-platinum);">
+            <h2>Módulo en construcción...</h2>
           </div>
         `;
       }
     });
   });
-
-  // 5. Cerrar sesión
-  const btnCerrarSesion = document.getElementById("btn-cerrar-sesion");
-  if (btnCerrarSesion) {
-    btnCerrarSesion.addEventListener("click", () => {
-      localStorage.removeItem("usuarioActivoMiPlata");
-      window.location.href = "Login.html";
-    });
-  }
 });
