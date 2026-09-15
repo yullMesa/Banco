@@ -1,36 +1,37 @@
 // --- CLASE BASE: CUENTA ---
+// --- CLASE BASE: CUENTA ---
 class Cuenta {
-  #saldo; // Encapsulamiento de la propiedad saldo
+  _saldo; // Cambiamos a _saldo para permitir gestión controlada en subclases
 
   constructor(numeroCuenta, saldoInicial = 0) {
     this.numeroCuenta = numeroCuenta;
-    this.#saldo = saldoInicial;
+    this._saldo = saldoInicial;
   }
 
   getSaldo() {
-    return this.#saldo;
+    return this._saldo;
   }
 
   consignar(monto) {
     if (monto <= 0) {
       throw new Error("El monto a consignar debe ser mayor a cero.");
     }
-    this.#saldo += monto;
-    return this.#saldo;
+    this._saldo += monto;
+    return this._saldo;
   }
 
-  // Método polimórfico base (será sobrescrito en las clases hijas)
   retirar(monto) {
     if (monto <= 0) {
       throw new Error("El monto a retirar debe ser mayor a cero.");
     }
-    if (monto > this.#saldo) {
+    if (monto > this._saldo) {
       throw new Error("Saldo insuficiente.");
     }
-    this.#saldo -= monto;
-    return this.#saldo;
+    this._saldo -= monto;
+    return this._saldo;
   }
 }
+
 
 // --- CUENTA DE AHORROS (Herencia de Cuenta) ---
 class CuentaAhorros extends Cuenta {
@@ -68,6 +69,7 @@ class CuentaCorriente extends Cuenta {
     if (monto <= 0) {
       throw new Error("El monto a retirar debe ser mayor a cero.");
     }
+    
     const saldoActual = this.getSaldo();
     const limiteConSobregiro = saldoActual + (saldoActual * 0.20); // 20% sobregiro
 
@@ -75,19 +77,12 @@ class CuentaCorriente extends Cuenta {
       throw new Error("El monto supera el saldo disponible y el límite de sobregiro del 20%.");
     }
 
-    // Forzamos la resta modificando mediante consignación negativa o reescribiendo la lógica interna si es necesario
-    // O restando directamente al saldo permitiendo valores negativos hasta el sobregiro:
-    const saldoRestante = saldoActual - monto;
-    if (saldoRestante < -(saldoActual * 0.20)) {
-       throw new Error("Sobregiro excedido.");
-    }
-    
-    // Hack limpio para permitir saldos negativos controlados en la clase base
-    // Podemos vaciar la cuenta temporalmente y ajustar:
-    super.consignar(-monto); 
+    // Restamos directamente usando _saldo para permitir sobregiro negativo controlado
+    this._saldo -= monto;
+
     return {
       nuevoSaldo: this.getSaldo(),
-      sobregiroUtilizado: saldoRestante < 0 ? Math.abs(saldoRestante) : 0
+      sobregiroUtilizado: this._saldo < 0 ? Math.abs(this._saldo) : 0
     };
   }
 }
