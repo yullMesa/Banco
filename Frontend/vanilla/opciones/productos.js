@@ -91,3 +91,26 @@ function guardarEstadoCliente(usuarioData, cliente) {
   listaUsuarios = listaUsuarios.map(u => u.username === usuarioData.username ? { ...u, ...usuarioData } : u);
   localStorage.setItem("usuariosMiPlataList", JSON.stringify(listaUsuarios));
 }
+
+
+function registrarMovimiento(usuarioData, tipo, producto, monto) {
+  if (!usuarioData.movimientos) {
+    usuarioData.movimientos = [];
+  }
+
+  const fechaActual = new Date().toLocaleString('es-CO', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  });
+
+  usuarioData.movimientos.push({
+    fecha: fechaActual,
+    tipo: tipo,       // "Consignación" o "Retiro"
+    producto: producto, // "Cuenta de Ahorros" o "Cuenta Corriente"
+    monto: monto
+  });
+}

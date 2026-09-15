@@ -932,3 +932,55 @@ body {
 }
 
 
+/* Estilos para la tabla de Movimientos */
+.table-container {
+  overflow-x: auto;
+  margin-top: 1.5rem;
+  background-color: var(--panel-teal);
+  border: 1px solid var(--border-teal);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.movimientos-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  color: var(--text-platinum);
+  font-size: 0.95rem;
+}
+
+.movimientos-table th, 
+.movimientos-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid var(--border-teal);
+}
+
+.movimientos-table th {
+  background-color: rgba(0, 43, 43, 0.8);
+  font-weight: 600;
+  color: var(--accent-blue);
+}
+
+.movimientos-table tr:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.badge-tipo {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.badge-consignacion {
+  background-color: rgba(40, 167, 69, 0.2);
+  color: #28a745;
+  border: 1px solid #28a745;
+}
+
+.badge-retiro {
+  background-color: rgba(255, 77, 77, 0.2);
+  color: #ff4d4d;
+  border: 1px solid #ff4d4d;
+}
