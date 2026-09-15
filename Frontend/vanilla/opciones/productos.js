@@ -77,23 +77,33 @@ function cargarProductos() {
 }
 
 function guardarEstadoCliente(usuarioData, cliente) {
-  // Guardamos el saldo actual obtenido directamente del método getSaldo() de la POO
+  // 1. RESPALDAMOS LOS MOVIMIENTOS ANTERIORES para que no se pierdan
+  const movimientosPrevios = usuarioData.movimientos || [];
+
+  // 2. Actualizamos los saldos de la POO
   usuarioData.ahorrosSaldo = cliente.cuentaAhorros.getSaldo();
   usuarioData.corrienteSaldo = cliente.cuentaCorriente.getSaldo();
   
-  // Guardamos también las propiedades de respaldo que lee Resumen
   usuarioData.saldoAhorros = cliente.cuentaAhorros.getSaldo();
   usuarioData.saldoCorriente = cliente.cuentaCorriente.getSaldo();
 
+  // 3. RESTAURAMOS LOS MOVIMIENTOS en el objeto antes de guardarlo
+  usuarioData.movimientos = movimientosPrevios;
+
+  // 4. Guardamos en el usuario activo
   localStorage.setItem("usuarioActivoMiPlata", JSON.stringify(usuarioData));
 
+  // 5. Actualizamos también la lista general de usuarios
   let listaUsuarios = JSON.parse(localStorage.getItem("usuariosMiPlataList")) || [];
   listaUsuarios = listaUsuarios.map(u => u.username === usuarioData.username ? { ...u, ...usuarioData } : u);
   localStorage.setItem("usuariosMiPlataList", JSON.stringify(listaUsuarios));
 }
 
 
-function registrarMovimiento(usuarioData, tipo, producto, monto) {
+function registrarMovimiento(tipo, producto, monto) {
+  // Obtenemos el usuario activo fresco del localStorage
+  let usuarioData = JSON.parse(localStorage.getItem("usuarioActivoMiPlata")) || {};
+  
   if (!usuarioData.movimientos) {
     usuarioData.movimientos = [];
   }
@@ -107,10 +117,19 @@ function registrarMovimiento(usuarioData, tipo, producto, monto) {
     second: '2-digit'
   });
 
+  // Agregamos el nuevo movimiento al array
   usuarioData.movimientos.push({
     fecha: fechaActual,
-    tipo: tipo,       // "Consignación" o "Retiro"
-    producto: producto, // "Cuenta de Ahorros" o "Cuenta Corriente"
+    tipo: tipo,       
+    producto: producto, 
     monto: monto
   });
+
+  // Guardamos inmediatamente el usuario actualizado con su nuevo movimiento
+  localStorage.setItem("usuarioActivoMiPlata", JSON.stringify(usuarioData));
+
+  // Actualizamos también la lista general de usuarios para que no se pierda al cambiar de cuenta
+  let listaUsuarios = JSON.parse(localStorage.getItem("usuariosMiPlataList")) || [];
+  listaUsuarios = listaUsuarios.map(u => u.username === usuarioData.username ? { ...u, ...usuarioData } : u);
+  localStorage.setItem("usuariosMiPlataList", JSON.stringify(listaUsuarios));
 }

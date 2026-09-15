@@ -44,6 +44,8 @@ function cargarRetirar() {
     const monto = parseFloat(document.getElementById("input-monto-retiro").value);
 
     try {
+
+        
       if (isNaN(monto) || monto <= 0) {
         throw new Error("El monto a retirar debe ser mayor a cero.");
       }
@@ -80,6 +82,8 @@ function cargarRetirar() {
         usuarioData.corrienteSaldo = cliente.cuentaCorriente.getSaldo();
         mensajeExito = `¡Retiro exitoso! Nuevo saldo: $${resultado.nuevoSaldo.toLocaleString('es-CO', { minimumFractionDigits: 2 })}`;
       }
+      // ---> 2. AQUÍ AGREGAS EL LLAMADO A LA FUNCIÓN DE MOVIMIENTO <---
+      registrarMovimiento("Retiro", tipo === "ahorros" ? "Cuenta de Ahorros" : "Cuenta Corriente", monto);
 
       // Guardar cambios en LocalStorage
       guardarEstadoCliente(usuarioData, cliente);
@@ -93,4 +97,32 @@ function cargarRetirar() {
       mensajeDiv.textContent = error.message;
     }
   });
+}
+
+
+// --- FUNCIÓN AUXILIAR PARA REGISTRAR MOVIMIENTOS ---
+function registrarMovimiento(tipo, producto, monto) {
+  let usuarioData = JSON.parse(localStorage.getItem("usuarioActivoMiPlata")) || {};
+  
+  if (!usuarioData.movimientos) {
+    usuarioData.movimientos = [];
+  }
+
+  const fechaActual = new Date().toLocaleString('es-CO', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  });
+
+  usuarioData.movimientos.push({
+    fecha: fechaActual,
+    tipo: tipo,       
+    producto: producto, 
+    monto: monto
+  });
+
+  localStorage.setItem("usuarioActivoMiPlata", JSON.stringify(usuarioData));
 }

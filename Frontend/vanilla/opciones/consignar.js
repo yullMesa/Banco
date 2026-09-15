@@ -74,7 +74,7 @@ function cargarConsignar() {
         cliente.cuentaCorriente.consignar(monto);
       }
 
-      registrarMovimiento(usuarioData, "Consignación", tipo === "ahorros" ? "Cuenta de Ahorros" : "Cuenta Corriente", monto);
+      registrarMovimiento("Consignación", tipo === "ahorros" ? "Cuenta de Ahorros" : "Cuenta Corriente", monto);
 
       // Guardamos el estado actualizado
       guardarEstadoCliente(usuarioData, cliente);
